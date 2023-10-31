@@ -3,3 +3,6 @@ gsm8k:
   val: 'path to validation json file'
   test: 'path to test json file'
 
+model:
+  name: "e.g: EleutherAI/pythia-1b"
+  cache_dir: "path to load/save model weights"
