@@ -1,0 +1,5 @@
+gsm8k:
+  train: 'path to training json file'
+  val: 'path to validation json file'
+  test: 'path to test json file'
+
