@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: stfc
+Version: 0.1
+Home-page: https://github.com/robflynnyh/GSM8K-self-training-from-context
+Author: Rob Flynn
+Author-email: rjflynn2@sheffield.ac.uk
+License: Apache 2.0
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.8

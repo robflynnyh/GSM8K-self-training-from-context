@@ -1,0 +1,8 @@
+README.md
+setup.py
+stfc/__init__.py
+stfc.egg-info/PKG-INFO
+stfc.egg-info/SOURCES.txt
+stfc.egg-info/dependency_links.txt
+stfc.egg-info/requires.txt
+stfc.egg-info/top_level.txt
