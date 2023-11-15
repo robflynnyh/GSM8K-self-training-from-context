@@ -6,7 +6,13 @@ def load_config(config: str = paths_path):
     config = OmegaConf.load(config)
     return config
 
-def load_jsonl(file):
-    with open(file, "r") as f:
-        lines = f.readlines()
-    return [json.loads(line) for line in lines]
+
+def load_jsonl(path: str):
+    with open(path) as fh:
+        return [json.loads(line) for line in fh.readlines() if line]
+
+def save_jsonl(data, file):
+    with open(file, 'w') as f:
+        for item in data:
+            f.write(json.dumps(item) + '\n')
+

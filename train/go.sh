@@ -1,0 +1,2 @@
+accelerate launch train.py 
+

@@ -3,34 +3,21 @@ import stfc
 import torch
 from tqdm import tqdm
 from typing import List, Dict
-
-@torch.no_grad()
-def inference(model, tokenizer, data:List[Dict]):
-    model.eval()
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    
-    for dp in tqdm(data):
-        prompt = dp['question']
-        input_ids = tokenizer(prompt, return_tensors="pt").input_ids
-        gen_tokens = model.generate(
-            input_ids.to(device),
-            early_stopping = True,
-            max_new_tokens = 100,
-            use_cache = True,
-            no_repeat_ngram_size = 3,
-        )
-        gen_text = tokenizer.batch_decode(gen_tokens)[0]
-        print(f'\n Q: {prompt} \n A: {gen_text} \n GT: {dp["answer"]}\n')
-        print('-'*100)
-
+from stfc.inference import inference
 
 def main(args):
     config = stfc.utils.load_config()
-    model, tokenizer = stfc.utils.model.load(name = config.model.name, cache_dir = config.model.cache_dir, in8bit = True)
-    test_data = stfc.utils.load_jsonl(config.gsm8k.test)
-    inference(model, tokenizer, test_data)
+    model, tokenizer = stfc.utils.model.load(name = config.model.name, cache_dir = config.model.cache_dir, in8bit = False, use_cache=True)
+    if "checkpoint" in config.model:
+        model.load_state_dict(torch.load(config.model.checkpoint))
+        print(f'Loaded checkpoint from {config.model.checkpoint}')
+    test_data = stfc.utils.load_jsonl(config.gsm8k.train)
+
+    inference(model, tokenizer, test_data, mode=args.mode, verbose=True)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument('-m', '--mode', type=str, default='vanilla', choices=['cot', 'vanilla', 'multistep'])
     args = parser.parse_args()
+    
     main(args)
